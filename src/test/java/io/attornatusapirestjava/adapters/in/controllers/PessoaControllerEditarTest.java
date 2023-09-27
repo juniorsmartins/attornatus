@@ -23,7 +23,7 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 class PessoaControllerEditarTest {
 
-    public static final String END_POINT = "/api/v1/pessoas/";
+    public static final String END_POINT = "/api/v1/pessoas";
 
     public static final String UTF8 = "UTF-8";
 
@@ -52,9 +52,9 @@ class PessoaControllerEditarTest {
     @DisplayName("Editar - Http 200")
     void deveRetornarHttp200_quandoEditar() throws Exception {
 
-        var dtoRequest = CriadorDeObjetos.fabricarPessoaDtoRequest();
+        var dtoRequest = CriadorDeObjetos.fabricarPessoaEditarDtoRequest(pessoaEntity1.getId());
 
-        this.mockMvc.perform(MockMvcRequestBuilders.put(END_POINT + pessoaEntity1.getId())
+        this.mockMvc.perform(MockMvcRequestBuilders.put(END_POINT)
             .contentType(MediaType.APPLICATION_JSON)
             .characterEncoding(UTF8)
             .content(Conversor.converterObjetoParaJson(dtoRequest))

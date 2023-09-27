@@ -15,7 +15,7 @@ import java.time.OffsetDateTime;
 public final class TratamentoExceptions extends ResponseEntityExceptionHandler {
 
     @ExceptionHandler(Exception.class)
-    public ResponseEntity<ApiErrorResponse> genericasException(Exception ex, WebRequest webRequest) {
+    public ResponseEntity<ApiErrorResponse> geralException(Exception ex, WebRequest webRequest) {
 
         var apiErrorResponse = ApiErrorResponse.builder()
                 .tipo(TipoDeErroEnum.ERRO_INTERNO_DE_SISTEMA.getCaminho())
