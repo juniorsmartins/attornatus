@@ -3,7 +3,6 @@ package io.attornatusapirestjava.adapters.in.controllers;
 import io.attornatusapirestjava.AttornatusApiRestJavaApplication;
 import io.attornatusapirestjava.adapters.out.entitiy.PessoaEntity;
 import io.attornatusapirestjava.adapters.out.repository.PessoaRepository;
-import io.attornatusapirestjava.uteis.Conversor;
 import io.attornatusapirestjava.uteis.CriadorDeObjetos;
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -50,8 +49,6 @@ class PessoaControllerConsultarTest {
     @Order(1)
     @DisplayName("Consultar - Http 200")
     void deveRetornarHttp200_quandoConsultar() throws Exception {
-
-        var dtoRequest = CriadorDeObjetos.fabricarPessoaDtoRequest();
 
         this.mockMvc.perform(MockMvcRequestBuilders.get(END_POINT + pessoaEntity.getId())
                 .contentType(MediaType.APPLICATION_JSON)
