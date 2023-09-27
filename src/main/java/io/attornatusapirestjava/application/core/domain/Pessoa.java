@@ -1,14 +1,16 @@
 package io.attornatusapirestjava.application.core.domain;
 
-public class Pessoa {
+import java.time.format.DateTimeFormatter;
+
+public final class Pessoa {
+
+    public static final DateTimeFormatter FORMATO_DATA = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
     private Long id;
 
     private String nome;
 
     private String dataNascimento;
-
-    public Pessoa() { }
 
     public Long getId() {
         return id;

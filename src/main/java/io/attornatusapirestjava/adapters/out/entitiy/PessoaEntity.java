@@ -24,10 +24,10 @@ public final class PessoaEntity implements Serializable {
     @Column(name = "id")
     private Long id;
 
-    @Column(name = "nome")
+    @Column(name = "nome", length = 100, nullable = false)
     private String nome;
 
-    @Column(name = "dataNascimento")
+    @Column(name = "dataNascimento", nullable = false)
     private String dataNascimento;
 }
 

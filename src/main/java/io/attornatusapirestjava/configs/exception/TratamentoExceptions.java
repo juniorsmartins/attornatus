@@ -1,6 +1,6 @@
 package io.attornatusapirestjava.configs.exception;
 
-import io.attornatusapirestjava.configs.exception.http_400.RecursoNaoEncontradoException;
+import io.attornatusapirestjava.configs.exception.http_404.RecursoNaoEncontradoException;
 import io.attornatusapirestjava.configs.exception.http_500.ErroInternoDoSistemaException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

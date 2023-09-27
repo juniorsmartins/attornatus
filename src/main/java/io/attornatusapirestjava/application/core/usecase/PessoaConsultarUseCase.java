@@ -3,7 +3,7 @@ package io.attornatusapirestjava.application.core.usecase;
 import io.attornatusapirestjava.application.core.domain.Pessoa;
 import io.attornatusapirestjava.application.ports.in.PessoaConsultarInputPort;
 import io.attornatusapirestjava.application.ports.out.PessoaConsultarOutputPort;
-import io.attornatusapirestjava.configs.exception.http_400.PessoaNaoEncontradaException;
+import io.attornatusapirestjava.configs.exception.http_404.PessoaNaoEncontradaException;
 
 import java.util.logging.Logger;
 
