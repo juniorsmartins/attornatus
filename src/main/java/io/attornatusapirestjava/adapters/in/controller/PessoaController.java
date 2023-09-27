@@ -2,13 +2,16 @@ package io.attornatusapirestjava.adapters.in.controller;
 
 import io.attornatusapirestjava.adapters.in.mapper.PessoaDtoRequestMapper;
 import io.attornatusapirestjava.adapters.in.mapper.PessoaDtoResponseMapper;
+import io.attornatusapirestjava.adapters.in.mapper.PessoaEditarDtoRequestMapper;
 import io.attornatusapirestjava.adapters.in.request.PessoaDtoRequest;
+import io.attornatusapirestjava.adapters.in.request.PessoaEditarDtoRequest;
 import io.attornatusapirestjava.adapters.in.response.PessoaDtoResponse;
 import io.attornatusapirestjava.application.ports.in.PessoaConsultarInputPort;
 import io.attornatusapirestjava.application.ports.in.PessoaCriarInputPort;
+import io.attornatusapirestjava.application.ports.in.PessoaEditarInputPort;
 import io.attornatusapirestjava.application.ports.in.PessoaListarInputPort;
-import io.attornatusapirestjava.configs.exception.http_500.FalhaAoConsultarException;
-import io.attornatusapirestjava.configs.exception.http_500.FalhaAoCriarException;
+import io.attornatusapirestjava.configs.exception.http_500.FalhaAoConsultarPessoaException;
+import io.attornatusapirestjava.configs.exception.http_500.FalhaAoCriarPessoaException;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -35,10 +38,16 @@ public class PessoaController {
     private PessoaListarInputPort pessoaListarInputPort;
 
     @Autowired
+    private PessoaEditarInputPort pessoaEditarInputPort;
+
+    @Autowired
     private PessoaDtoRequestMapper pessoaDtoRequestMapper;
 
     @Autowired
     private PessoaDtoResponseMapper pessoaDtoResponseMapper;
+
+    @Autowired
+    private PessoaEditarDtoRequestMapper pessoaEditarDtoRequestMapper;
 
     @PostMapping
     public ResponseEntity<PessoaDtoResponse> criar(@RequestBody @Valid PessoaDtoRequest dtoRequest) {
@@ -49,7 +58,7 @@ public class PessoaController {
                 .map(this.pessoaDtoRequestMapper::toPessoa)
                 .map(this.pessoaCriarInputPort::criar)
                 .map(this.pessoaDtoResponseMapper::toPessoaDtoResponse)
-                .orElseThrow(() -> new FalhaAoCriarException("Falha ao criar uma pessoa."));
+                .orElseThrow(() -> new FalhaAoCriarPessoaException("Falha ao criar uma pessoa."));
 
         logger.info("Finalizada requisição para criar uma pessoa.");
 
@@ -66,7 +75,7 @@ public class PessoaController {
         var dtoResponse = Optional.of(id)
                 .map(this.pessoaConsultarInputPort::consultar)
                 .map(this.pessoaDtoResponseMapper::toPessoaDtoResponse)
-                .orElseThrow(() -> new FalhaAoConsultarException("Falha ao consultar uma pessoa."));
+                .orElseThrow(() -> new FalhaAoConsultarPessoaException("Falha ao consultar uma pessoa."));
 
         logger.info("Finalizada requisição para consultar uma pessoa.");
 
@@ -90,6 +99,24 @@ public class PessoaController {
         return ResponseEntity
                 .ok()
                 .body(response);
+    }
+
+    @PutMapping
+    public ResponseEntity<PessoaDtoResponse> editar(@RequestBody @Valid PessoaEditarDtoRequest pessoaEditarDtoRequest) {
+
+        logger.info("Iniciada requisição para editar pessoa.");
+
+        var dtoResponse = Optional.of(pessoaEditarDtoRequest)
+                        .map(this.pessoaEditarDtoRequestMapper::toPessoa)
+                        .map(this.pessoaEditarInputPort::editar)
+                        .map(this.pessoaDtoResponseMapper::toPessoaDtoResponse)
+                        .orElseThrow();
+
+        logger.info("Finalizada requisição para editar pessoa.");
+
+        return ResponseEntity
+                .ok()
+                .body(dtoResponse);
     }
 }
 
