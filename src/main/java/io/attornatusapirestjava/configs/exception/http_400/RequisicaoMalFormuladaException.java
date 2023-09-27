@@ -8,7 +8,7 @@ public abstract class RequisicaoMalFormuladaException extends RuntimeException {
     private static final long serialVersionUID = 1L;
 
     public RequisicaoMalFormuladaException(String mensagem) {
-        super(mensagem);
+        super(String.format("Data em formato inválido: %s", mensagem));
     }
 }
 

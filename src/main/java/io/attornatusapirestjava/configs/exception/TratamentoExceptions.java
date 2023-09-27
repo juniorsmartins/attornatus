@@ -1,5 +1,6 @@
 package io.attornatusapirestjava.configs.exception;
 
+import io.attornatusapirestjava.configs.exception.http_400.RequisicaoMalFormuladaException;
 import io.attornatusapirestjava.configs.exception.http_404.RecursoNaoEncontradoException;
 import io.attornatusapirestjava.configs.exception.http_500.ErroInternoDoSistemaException;
 import org.springframework.http.HttpStatus;
@@ -65,6 +66,24 @@ public final class TratamentoExceptions extends ResponseEntityExceptionHandler {
 
         return ResponseEntity
                 .status(HttpStatus.NOT_FOUND)
+                .body(apiErrorResponse);
+    }
+
+    @ExceptionHandler(RequisicaoMalFormuladaException.class)
+    public ResponseEntity<ApiErrorResponse> requisicaoMalFormuladaException(RequisicaoMalFormuladaException ex, WebRequest webRequest) {
+
+        var apiErrorResponse = ApiErrorResponse.builder()
+                .tipo(TipoDeErroEnum.REQUISICAO_MAL_FORMULADA.getCaminho())
+                .titulo(TipoDeErroEnum.REQUISICAO_MAL_FORMULADA.getTitulo())
+                .codigoHttp(HttpStatus.BAD_REQUEST.value())
+                .statusHttp(HttpStatus.BAD_REQUEST.name())
+                .detalhe(ex.getMessage())
+                .instance(null)
+                .dataHora(OffsetDateTime.now())
+                .build();
+
+        return ResponseEntity
+                .badRequest()
                 .body(apiErrorResponse);
     }
 }
