@@ -1,4 +1,4 @@
-package io.attornatusapirestjava.configs.exception.http_400;
+package io.attornatusapirestjava.configs.exception.http_404;
 
 import java.io.Serial;
 

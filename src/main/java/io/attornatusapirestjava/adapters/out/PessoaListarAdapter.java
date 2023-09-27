@@ -3,17 +3,17 @@ package io.attornatusapirestjava.adapters.out;
 import io.attornatusapirestjava.adapters.out.mapper.PessoaEntityMapper;
 import io.attornatusapirestjava.adapters.out.repository.PessoaRepository;
 import io.attornatusapirestjava.application.core.domain.Pessoa;
-import io.attornatusapirestjava.application.ports.out.PessoaConsultarOutputPort;
+import io.attornatusapirestjava.application.ports.out.PessoaListarOutputPort;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.util.Optional;
+import java.util.List;
 import java.util.logging.Logger;
 
 @Component
-public class PessoaConsultarAdapter implements PessoaConsultarOutputPort {
+public class PessoaListarAdapter implements PessoaListarOutputPort {
 
-    private final Logger logger = Logger.getLogger(PessoaConsultarAdapter.class.getName());
+    private final Logger logger = Logger.getLogger(PessoaListarAdapter.class.getName());
 
     @Autowired
     private PessoaRepository pessoaRepository;
@@ -22,11 +22,14 @@ public class PessoaConsultarAdapter implements PessoaConsultarOutputPort {
     private PessoaEntityMapper pessoaEntityMapper;
 
     @Override
-    public Optional<Pessoa> consultar(final Long id) {
+    public List<Pessoa> listar() {
 
-        logger.info("Consultar uma pessoa.");
-        return this.pessoaRepository.findById(id)
-                .map(this.pessoaEntityMapper::toPessoa);
+        logger.info("Listar pessoas.");
+
+        return this.pessoaRepository.findAll()
+                .stream()
+                .map(this.pessoaEntityMapper::toPessoa)
+                .toList();
     }
 }
 

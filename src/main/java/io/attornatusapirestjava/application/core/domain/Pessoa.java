@@ -1,14 +1,20 @@
 package io.attornatusapirestjava.application.core.domain;
 
-public class Pessoa {
+import io.attornatusapirestjava.application.core.domain.objeto_valor.DataNascimento;
+import org.apache.commons.lang3.ObjectUtils;
+
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+
+public final class Pessoa {
+
+    public static final DateTimeFormatter FORMATO_DATA = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
     private Long id;
 
     private String nome;
 
-    private String dataNascimento;
-
-    public Pessoa() { }
+    private DataNascimento dataNascimento;
 
     public Long getId() {
         return id;
@@ -26,12 +32,30 @@ public class Pessoa {
         this.nome = nome;
     }
 
-    public String getDataNascimento() {
-        return dataNascimento;
+    public void setDataNascimentoString(String dataNascimento) {
+        if (ObjectUtils.isNotEmpty(dataNascimento)) {
+            this.dataNascimento = new DataNascimento(dataNascimento);
+        }
     }
 
-    public void setDataNascimento(String dataNascimento) {
-        this.dataNascimento = dataNascimento;
+    public String getDataNascimento() {
+        if (ObjectUtils.isNotEmpty(this.dataNascimento)) {
+            return this.dataNascimento.getDataNascimentoString();
+        }
+        return null;
+    }
+
+    public void setDataNascimentoLocalDate(LocalDate dataNascimento) {
+        if (ObjectUtils.isNotEmpty(dataNascimento)) {
+            this.dataNascimento = new DataNascimento(dataNascimento);
+        }
+    }
+
+    public LocalDate getDataNascimentoLocalDate() {
+        if (ObjectUtils.isNotEmpty(this.dataNascimento)) {
+            return this.dataNascimento.getDataNascimentoLocalDate();
+        }
+        return null;
     }
 }
 

@@ -5,6 +5,7 @@ import lombok.*;
 
 import java.io.Serial;
 import java.io.Serializable;
+import java.time.LocalDate;
 
 @Entity
 @Table(name = "pessoas")
@@ -24,10 +25,10 @@ public final class PessoaEntity implements Serializable {
     @Column(name = "id")
     private Long id;
 
-    @Column(name = "nome")
+    @Column(name = "nome", length = 100, nullable = false)
     private String nome;
 
-    @Column(name = "dataNascimento")
-    private String dataNascimento;
+    @Column(name = "dataNascimento", nullable = false)
+    private LocalDate dataNascimentoLocalDate;
 }
 

@@ -11,6 +11,7 @@ import java.util.List;
 @AllArgsConstructor
 @Getter
 @Setter
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class ApiErrorResponse {
 
     private String tipo; // Um URI que identifica o tipo de problema. Deve fornecer documentação (como página de erro ou um link).

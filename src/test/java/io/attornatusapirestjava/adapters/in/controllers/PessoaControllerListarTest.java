@@ -1,8 +1,8 @@
 package io.attornatusapirestjava.adapters.in.controllers;
 
 import io.attornatusapirestjava.AttornatusApiRestJavaApplication;
+import io.attornatusapirestjava.adapters.out.entitiy.PessoaEntity;
 import io.attornatusapirestjava.adapters.out.repository.PessoaRepository;
-import io.attornatusapirestjava.uteis.Conversor;
 import io.attornatusapirestjava.uteis.CriadorDeObjetos;
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -20,7 +20,7 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 @AutoConfigureMockMvc
 @ExtendWith(SpringExtension.class)
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
-class PessoaControllerCriarTest {
+class PessoaControllerListarTest {
 
     public static final String END_POINT = "/api/v1/pessoas";
 
@@ -32,9 +32,15 @@ class PessoaControllerCriarTest {
     @Autowired
     private PessoaRepository pessoaRepository;
 
+    private PessoaEntity pessoaEntity1;
+
+    private PessoaEntity pessoaEntity2;
+
     @BeforeEach
     void criadorDeCenario() {
 
+        pessoaEntity1 = this.pessoaRepository.save(CriadorDeObjetos.fabricarPessoaEntity());
+        pessoaEntity2 = this.pessoaRepository.save(CriadorDeObjetos.fabricarPessoaEntity());
     }
 
     @AfterEach
@@ -45,17 +51,14 @@ class PessoaControllerCriarTest {
 
     @Test
     @Order(1)
-    @DisplayName("Criar - Http 201")
+    @DisplayName("Listar - Http 200")
     void deveRetornarHttp201_quandoCriar() throws Exception {
 
-        var dtoRequest = CriadorDeObjetos.fabricarPessoaDtoRequest();
-
-        this.mockMvc.perform(MockMvcRequestBuilders.post(END_POINT)
+        this.mockMvc.perform(MockMvcRequestBuilders.get(END_POINT)
             .contentType(MediaType.APPLICATION_JSON)
             .characterEncoding(UTF8)
-            .content(Conversor.converterObjetoParaJson(dtoRequest))
             .accept(MediaType.APPLICATION_JSON))
-            .andExpect(MockMvcResultMatchers.status().isCreated())
+            .andExpect(MockMvcResultMatchers.status().isOk())
             .andDo(MockMvcResultHandlers.print());
     }
 }

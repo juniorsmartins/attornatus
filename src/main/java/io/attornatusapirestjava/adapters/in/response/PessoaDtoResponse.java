@@ -7,8 +7,8 @@ import lombok.*;
 @AllArgsConstructor
 @Getter
 @Setter
-@EqualsAndHashCode(of = {"id"})
 @ToString
+@EqualsAndHashCode(of = {"id"})
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public final class PessoaDtoResponse {
 
