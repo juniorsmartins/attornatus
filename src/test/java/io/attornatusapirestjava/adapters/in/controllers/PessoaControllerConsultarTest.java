@@ -43,6 +43,7 @@ class PessoaControllerConsultarTest {
     @AfterEach
     void destruidorDeCenario() {
 
+        this.pessoaRepository.deleteAll();
     }
 
     @Test
