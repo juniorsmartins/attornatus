@@ -44,7 +44,7 @@ class PessoaControllerCriarTest {
     void deveRetornarHttp201_quandoCriar() throws Exception {
 
         var dtoRequest = CriadorDeObjetos.fabricarPessoaDtoRequest();
-short
+
         this.mockMvc.perform(MockMvcRequestBuilders.post(END_POINT)
             .contentType(MediaType.APPLICATION_JSON)
             .characterEncoding(UTF8)
