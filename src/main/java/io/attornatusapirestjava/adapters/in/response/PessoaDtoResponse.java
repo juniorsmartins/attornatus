@@ -8,6 +8,7 @@ import lombok.*;
 @Getter
 @Setter
 @EqualsAndHashCode(of = {"id"})
+@ToString
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public final class PessoaDtoResponse {
 
