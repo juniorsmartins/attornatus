@@ -4,15 +4,14 @@ import io.attornatusapirestjava.adapters.in.mapper.PessoaDtoRequestMapper;
 import io.attornatusapirestjava.adapters.in.mapper.PessoaDtoResponseMapper;
 import io.attornatusapirestjava.adapters.in.request.PessoaDtoRequest;
 import io.attornatusapirestjava.adapters.in.response.PessoaDtoResponse;
+import io.attornatusapirestjava.application.ports.in.PessoaConsultarInputPort;
 import io.attornatusapirestjava.application.ports.in.PessoaCriarInputPort;
-import io.attornatusapirestjava.configs.exception.http500.FalhaAoCriarException;
+import io.attornatusapirestjava.configs.exception.http_500.FalhaAoConsultarException;
+import io.attornatusapirestjava.configs.exception.http_500.FalhaAoCriarException;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
 import java.util.Optional;
@@ -26,6 +25,9 @@ public class PessoaController {
 
     @Autowired
     private PessoaCriarInputPort pessoaCriarInputPort;
+
+    @Autowired
+    private PessoaConsultarInputPort pessoaConsultarInputPort;
 
     @Autowired
     private PessoaDtoRequestMapper pessoaDtoRequestMapper;
@@ -44,10 +46,27 @@ public class PessoaController {
                 .map(this.pessoaDtoResponseMapper::toPessoaDtoResponse)
                 .orElseThrow(() -> new FalhaAoCriarException("Falha ao criar uma pessoa."));
 
-        logger.info("Concluída requisição para criar uma pessoa.");
+        logger.info("Finalizada requisição para criar uma pessoa.");
 
         return ResponseEntity
                 .created(URI.create("/api/v1/pessoas/" + dtoResponse.getId()))
+                .body(dtoResponse);
+    }
+
+    @GetMapping(path = "/{id}")
+    public ResponseEntity<PessoaDtoResponse> consultar(@PathVariable(name = "id") final Long id) {
+
+        logger.info("Iniciada requisição para consultar uma pessoa.");
+
+        var dtoResponse = Optional.of(id)
+                .map(this.pessoaConsultarInputPort::consultar)
+                .map(this.pessoaDtoResponseMapper::toPessoaDtoResponse)
+                .orElseThrow(() -> new FalhaAoConsultarException("Falha ao consultar uma pessoa."));
+
+        logger.info("Finalizada requisição para consultar uma pessoa.");
+
+        return ResponseEntity
+                .ok()
                 .body(dtoResponse);
     }
 }

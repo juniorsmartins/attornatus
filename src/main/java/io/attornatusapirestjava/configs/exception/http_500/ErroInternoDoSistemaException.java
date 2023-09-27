@@ -1,4 +1,4 @@
-package io.attornatusapirestjava.configs.exception.http500;
+package io.attornatusapirestjava.configs.exception.http_500;
 
 import java.io.Serial;
 

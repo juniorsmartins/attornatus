@@ -1,6 +1,6 @@
 package io.attornatusapirestjava.configs.exception;
 
-import io.attornatusapirestjava.configs.exception.http500.ErroInternoDoSistemaException;
+import io.attornatusapirestjava.configs.exception.http_500.ErroInternoDoSistemaException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;

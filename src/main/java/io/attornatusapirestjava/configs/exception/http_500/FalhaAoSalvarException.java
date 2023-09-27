@@ -1,4 +1,4 @@
-package io.attornatusapirestjava.configs.exception.http500;
+package io.attornatusapirestjava.configs.exception.http_500;
 
 import java.io.Serial;
 
@@ -9,6 +9,10 @@ public final class FalhaAoSalvarException extends ErroInternoDoSistemaException 
 
     public FalhaAoSalvarException(String message) {
         super(message);
+    }
+
+    public FalhaAoSalvarException() {
+        this("Falha ao salvar uma pessoa.");
     }
 }
 

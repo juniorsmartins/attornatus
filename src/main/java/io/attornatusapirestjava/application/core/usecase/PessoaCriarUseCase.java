@@ -21,7 +21,6 @@ public class PessoaCriarUseCase implements PessoaCriarInputPort {
     public Pessoa criar(Pessoa pessoa) {
 
         logger.info("Criar uma pessoa.");
-
         return this.pessoaSalvarOutputPort.salvar(pessoa);
     }
 }
