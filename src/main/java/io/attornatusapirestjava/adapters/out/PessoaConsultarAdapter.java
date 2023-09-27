@@ -8,9 +8,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.Optional;
+import java.util.logging.Logger;
 
 @Component
 public class PessoaConsultarAdapter implements PessoaConsultarOutputPort {
+
+    private final Logger logger = Logger.getLogger(PessoaConsultarAdapter.class.getName());
 
     @Autowired
     private PessoaRepository pessoaRepository;
@@ -21,6 +24,7 @@ public class PessoaConsultarAdapter implements PessoaConsultarOutputPort {
     @Override
     public Optional<Pessoa> consultar(final Long id) {
 
+        logger.info("Consultar uma pessoa.");
         return this.pessoaRepository.findById(id)
                 .map(this.pessoaEntityMapper::toPessoa);
     }
