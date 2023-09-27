@@ -1,14 +1,11 @@
 package io.attornatusapirestjava.adapters.out.entitiy;
 
-import io.attornatusapirestjava.configs.exception.http_400.DataNascimentoInvalidaException;
 import jakarta.persistence.*;
 import lombok.*;
 
 import java.io.Serial;
 import java.io.Serializable;
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
 
 @Entity
 @Table(name = "pessoas")

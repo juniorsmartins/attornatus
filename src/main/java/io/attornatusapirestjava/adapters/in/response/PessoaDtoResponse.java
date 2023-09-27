@@ -3,8 +3,6 @@ package io.attornatusapirestjava.adapters.in.response;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.*;
 
-import java.time.LocalDate;
-
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter

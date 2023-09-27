@@ -1,9 +1,6 @@
 package io.attornatusapirestjava.application.core.domain.objeto_valor;
 
 import io.attornatusapirestjava.configs.exception.http_400.DataNascimentoInvalidaException;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.Setter;
 
 import java.io.Serializable;
 import java.time.LocalDate;
