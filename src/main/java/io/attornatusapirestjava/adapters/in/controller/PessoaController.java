@@ -6,6 +6,7 @@ import io.attornatusapirestjava.adapters.in.request.PessoaDtoRequest;
 import io.attornatusapirestjava.adapters.in.response.PessoaDtoResponse;
 import io.attornatusapirestjava.application.ports.in.PessoaConsultarInputPort;
 import io.attornatusapirestjava.application.ports.in.PessoaCriarInputPort;
+import io.attornatusapirestjava.application.ports.in.PessoaListarInputPort;
 import io.attornatusapirestjava.configs.exception.http_500.FalhaAoConsultarException;
 import io.attornatusapirestjava.configs.exception.http_500.FalhaAoCriarException;
 import jakarta.validation.Valid;
@@ -14,6 +15,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
+import java.util.List;
 import java.util.Optional;
 import java.util.logging.Logger;
 
@@ -28,6 +30,9 @@ public class PessoaController {
 
     @Autowired
     private PessoaConsultarInputPort pessoaConsultarInputPort;
+
+    @Autowired
+    private PessoaListarInputPort pessoaListarInputPort;
 
     @Autowired
     private PessoaDtoRequestMapper pessoaDtoRequestMapper;
@@ -68,6 +73,23 @@ public class PessoaController {
         return ResponseEntity
                 .ok()
                 .body(dtoResponse);
+    }
+
+    @GetMapping
+    public ResponseEntity<List<PessoaDtoResponse>> listar() {
+
+        logger.info("Iniciada requisição para listar pessoas.");
+
+        var response = this.pessoaListarInputPort.listar()
+            .stream()
+            .map(this.pessoaDtoResponseMapper::toPessoaDtoResponse)
+            .toList();
+
+        logger.info("Finalizada requisição para listar pessoas.");
+
+        return ResponseEntity
+                .ok()
+                .body(response);
     }
 }
 
