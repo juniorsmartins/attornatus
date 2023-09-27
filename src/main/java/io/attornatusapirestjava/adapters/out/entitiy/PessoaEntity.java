@@ -8,6 +8,7 @@ import java.io.Serializable;
 
 @Entity
 @Table(name = "pessoas")
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter

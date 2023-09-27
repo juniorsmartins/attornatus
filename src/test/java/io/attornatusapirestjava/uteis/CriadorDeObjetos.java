@@ -2,6 +2,7 @@ package io.attornatusapirestjava.uteis;
 
 import com.github.javafaker.Faker;
 import io.attornatusapirestjava.adapters.in.request.PessoaDtoRequest;
+import io.attornatusapirestjava.adapters.out.entitiy.PessoaEntity;
 
 public final class CriadorDeObjetos {
 
@@ -12,6 +13,14 @@ public final class CriadorDeObjetos {
     return new PessoaDtoRequest(
         faker.name().fullName(), ("1" + faker.numerify("#") + "/10/19" + faker.numerify("##"))
     );
+  }
+
+  public static PessoaEntity fabricarPessoaEntity() {
+
+    return PessoaEntity.builder()
+        .nome(faker.name().fullName())
+        .dataNascimento("1" + faker.numerify("#") + "/10/19" + faker.numerify("##"))
+        .build();
   }
 
 //  public static ClienteDao.ClienteDaoBuilder gerarClienteDaoBuilder() {
