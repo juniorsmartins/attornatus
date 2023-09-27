@@ -5,6 +5,8 @@ import io.attornatusapirestjava.adapters.in.request.PessoaDtoRequest;
 import io.attornatusapirestjava.adapters.in.request.PessoaEditarDtoRequest;
 import io.attornatusapirestjava.adapters.out.entitiy.PessoaEntity;
 
+import java.time.LocalDate;
+
 public final class CriadorDeObjetos {
 
   public static Faker faker = new Faker();
@@ -25,9 +27,13 @@ public final class CriadorDeObjetos {
 
   public static PessoaEntity fabricarPessoaEntity() {
 
+    var ano = Integer.parseInt("19" + faker.numerify("##"));
+    var dia = Integer.parseInt("1" + faker.numerify("#"));
+    var dataNascimento = LocalDate.of(ano, 10, dia);
+
     return PessoaEntity.builder()
         .nome(faker.name().fullName())
-        .dataNascimento("1" + faker.numerify("#") + "/10/19" + faker.numerify("##"))
+        .dataNascimentoLocalDate(dataNascimento)
         .build();
   }
 
