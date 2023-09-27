@@ -4,11 +4,8 @@ import io.attornatusapirestjava.application.core.domain.objeto_valor.DataNascime
 import org.apache.commons.lang3.ObjectUtils;
 
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 
 public final class Pessoa {
-
-    public static final DateTimeFormatter FORMATO_DATA = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
     private Long id;
 
