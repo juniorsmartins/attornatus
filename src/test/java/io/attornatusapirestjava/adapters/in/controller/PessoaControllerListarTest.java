@@ -1,9 +1,8 @@
-package io.attornatusapirestjava.adapters.in.controllers;
+package io.attornatusapirestjava.adapters.in.controller;
 
 import io.attornatusapirestjava.AttornatusApiRestJavaApplication;
 import io.attornatusapirestjava.adapters.out.entitiy.PessoaEntity;
 import io.attornatusapirestjava.adapters.out.repository.PessoaRepository;
-import io.attornatusapirestjava.uteis.Conversor;
 import io.attornatusapirestjava.uteis.CriadorDeObjetos;
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -21,7 +20,7 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 @AutoConfigureMockMvc
 @ExtendWith(SpringExtension.class)
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
-class PessoaControllerEditarTest {
+class PessoaControllerListarTest {
 
     public static final String END_POINT = "/api/v1/pessoas";
 
@@ -35,10 +34,13 @@ class PessoaControllerEditarTest {
 
     private PessoaEntity pessoaEntity1;
 
+    private PessoaEntity pessoaEntity2;
+
     @BeforeEach
     void criadorDeCenario() {
 
         pessoaEntity1 = this.pessoaRepository.save(CriadorDeObjetos.fabricarPessoaEntity());
+        pessoaEntity2 = this.pessoaRepository.save(CriadorDeObjetos.fabricarPessoaEntity());
     }
 
     @AfterEach
@@ -49,15 +51,12 @@ class PessoaControllerEditarTest {
 
     @Test
     @Order(1)
-    @DisplayName("Editar - Http 200")
-    void deveRetornarHttp200_quandoEditar() throws Exception {
+    @DisplayName("Listar - Http 200")
+    void deveRetornarHttp201_quandoCriar() throws Exception {
 
-        var dtoRequest = CriadorDeObjetos.fabricarPessoaEditarDtoRequest(pessoaEntity1.getId());
-
-        this.mockMvc.perform(MockMvcRequestBuilders.put(END_POINT)
+        this.mockMvc.perform(MockMvcRequestBuilders.get(END_POINT)
             .contentType(MediaType.APPLICATION_JSON)
             .characterEncoding(UTF8)
-            .content(Conversor.converterObjetoParaJson(dtoRequest))
             .accept(MediaType.APPLICATION_JSON))
             .andExpect(MockMvcResultMatchers.status().isOk())
             .andDo(MockMvcResultHandlers.print());

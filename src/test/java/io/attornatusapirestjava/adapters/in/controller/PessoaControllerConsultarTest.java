@@ -1,8 +1,8 @@
-package io.attornatusapirestjava.adapters.in.controllers;
+package io.attornatusapirestjava.adapters.in.controller;
 
 import io.attornatusapirestjava.AttornatusApiRestJavaApplication;
+import io.attornatusapirestjava.adapters.out.entitiy.PessoaEntity;
 import io.attornatusapirestjava.adapters.out.repository.PessoaRepository;
-import io.attornatusapirestjava.uteis.Conversor;
 import io.attornatusapirestjava.uteis.CriadorDeObjetos;
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -20,9 +20,9 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 @AutoConfigureMockMvc
 @ExtendWith(SpringExtension.class)
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
-class PessoaControllerCriarTest {
+class PessoaControllerConsultarTest {
 
-    public static final String END_POINT = "/api/v1/pessoas";
+    public static final String END_POINT = "/api/v1/pessoas/";
 
     public static final String UTF8 = "UTF-8";
 
@@ -32,9 +32,12 @@ class PessoaControllerCriarTest {
     @Autowired
     private PessoaRepository pessoaRepository;
 
+    private PessoaEntity pessoaEntity;
+
     @BeforeEach
     void criadorDeCenario() {
 
+        pessoaEntity = this.pessoaRepository.save(CriadorDeObjetos.fabricarPessoaEntity());
     }
 
     @AfterEach
@@ -45,17 +48,14 @@ class PessoaControllerCriarTest {
 
     @Test
     @Order(1)
-    @DisplayName("Criar - Http 201")
-    void deveRetornarHttp201_quandoCriar() throws Exception {
+    @DisplayName("Consultar - Http 200")
+    void deveRetornarHttp200_quandoConsultar() throws Exception {
 
-        var dtoRequest = CriadorDeObjetos.fabricarPessoaDtoRequest();
-
-        this.mockMvc.perform(MockMvcRequestBuilders.post(END_POINT)
-            .contentType(MediaType.APPLICATION_JSON)
-            .characterEncoding(UTF8)
-            .content(Conversor.converterObjetoParaJson(dtoRequest))
-            .accept(MediaType.APPLICATION_JSON))
-            .andExpect(MockMvcResultMatchers.status().isCreated())
-            .andDo(MockMvcResultHandlers.print());
+        this.mockMvc.perform(MockMvcRequestBuilders.get(END_POINT + pessoaEntity.getId())
+                .contentType(MediaType.APPLICATION_JSON)
+                .characterEncoding(UTF8)
+                .accept(MediaType.APPLICATION_JSON))
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andDo(MockMvcResultHandlers.print());
     }
 }
