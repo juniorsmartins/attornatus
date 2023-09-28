@@ -52,13 +52,13 @@ public class PessoaController {
     @PostMapping
     public ResponseEntity<PessoaDtoResponse> criar(@RequestBody @Valid PessoaDtoRequest dtoRequest) {
 
-        logger.info("Iniciado requisição para criar uma pessoa.");
+        logger.info("Iniciada requisição para criar uma pessoa.");
 
         var dtoResponse = Optional.of(dtoRequest)
                 .map(this.pessoaDtoRequestMapper::toPessoa)
                 .map(this.pessoaCriarInputPort::criar)
                 .map(this.pessoaDtoResponseMapper::toPessoaDtoResponse)
-                .orElseThrow(() -> new FalhaAoCriarPessoaException("Falha ao criar uma pessoa."));
+                .orElseThrow(FalhaAoCriarPessoaException::new);
 
         logger.info("Finalizada requisição para criar uma pessoa.");
 

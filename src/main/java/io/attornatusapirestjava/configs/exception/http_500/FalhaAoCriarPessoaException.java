@@ -10,5 +10,9 @@ public final class FalhaAoCriarPessoaException extends ErroInternoDoSistemaExcep
     public FalhaAoCriarPessoaException(String message) {
         super(message);
     }
+
+    public FalhaAoCriarPessoaException() {
+        this("Falha ao criar uma pessoa.");
+    }
 }
 
