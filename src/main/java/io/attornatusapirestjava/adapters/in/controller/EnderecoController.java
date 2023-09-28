@@ -14,11 +14,13 @@ public class EnderecoController {
 
     private final Logger logger = Logger.getLogger(EnderecoController.class.getName());
 
-    @PutMapping(path = "/idPessoa")
+    @PutMapping(path = "/{idPessoa}")
     public ResponseEntity<EnderecoDtoResponse> criar(@PathVariable(name = "idPessoa") final Long id,
                                                      @RequestBody @Valid EnderecoDtoRequest dtoRequest) {
 
-        return null;
+        return ResponseEntity
+            .ok()
+            .body(null);
     }
 }
 

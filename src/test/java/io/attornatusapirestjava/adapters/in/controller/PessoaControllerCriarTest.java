@@ -1,6 +1,7 @@
 package io.attornatusapirestjava.adapters.in.controller;
 
 import io.attornatusapirestjava.AttornatusApiRestJavaApplication;
+import io.attornatusapirestjava.adapters.out.entitiy.PessoaEntity;
 import io.attornatusapirestjava.adapters.out.repository.PessoaRepository;
 import io.attornatusapirestjava.uteis.Conversor;
 import io.attornatusapirestjava.uteis.CriadorDeObjetos;
@@ -32,9 +33,12 @@ class PessoaControllerCriarTest {
     @Autowired
     private PessoaRepository pessoaRepository;
 
+    private PessoaEntity pessoaEntity1;
+
     @BeforeEach
     void criadorDeCenario() {
 
+        pessoaEntity1 = this.pessoaRepository.save(CriadorDeObjetos.fabricarPessoaEntity());
     }
 
     @AfterEach

@@ -1,6 +1,7 @@
 package io.attornatusapirestjava.uteis;
 
 import com.github.javafaker.Faker;
+import io.attornatusapirestjava.adapters.in.request.EnderecoDtoRequest;
 import io.attornatusapirestjava.adapters.in.request.PessoaDtoRequest;
 import io.attornatusapirestjava.adapters.in.request.PessoaEditarDtoRequest;
 import io.attornatusapirestjava.adapters.out.entitiy.PessoaEntity;
@@ -35,6 +36,16 @@ public final class CriadorDeObjetos {
         .nome(faker.name().fullName())
         .dataNascimentoLocalDate(dataNascimento)
         .build();
+  }
+
+  public static EnderecoDtoRequest fabricarEnderecoDtoRequest() {
+
+    return new EnderecoDtoRequest(
+            faker.address().streetAddress(),
+            faker.numerify("########"),
+            faker.numerify("####"),
+            faker.address().city(),
+            true);
   }
 
 //  public static ClienteDao.ClienteDaoBuilder gerarClienteDaoBuilder() {
