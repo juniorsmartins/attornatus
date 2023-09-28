@@ -12,6 +12,7 @@ import io.attornatusapirestjava.application.ports.in.PessoaEditarInputPort;
 import io.attornatusapirestjava.application.ports.in.PessoaListarInputPort;
 import io.attornatusapirestjava.configs.exception.http_500.FalhaAoConsultarPessoaException;
 import io.attornatusapirestjava.configs.exception.http_500.FalhaAoCriarPessoaException;
+import io.attornatusapirestjava.configs.exception.http_500.FalhaAoEditarPessoaException;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -75,7 +76,7 @@ public class PessoaController {
         var dtoResponse = Optional.of(id)
                 .map(this.pessoaConsultarInputPort::consultar)
                 .map(this.pessoaDtoResponseMapper::toPessoaDtoResponse)
-                .orElseThrow(() -> new FalhaAoConsultarPessoaException("Falha ao consultar uma pessoa."));
+                .orElseThrow(FalhaAoConsultarPessoaException::new);
 
         logger.info("Finalizada requisição para consultar uma pessoa.");
 
@@ -110,7 +111,7 @@ public class PessoaController {
                         .map(this.pessoaEditarDtoRequestMapper::toPessoa)
                         .map(this.pessoaEditarInputPort::editar)
                         .map(this.pessoaDtoResponseMapper::toPessoaDtoResponse)
-                        .orElseThrow();
+                        .orElseThrow(FalhaAoEditarPessoaException::new);
 
         logger.info("Finalizada requisição para editar pessoa.");
 
