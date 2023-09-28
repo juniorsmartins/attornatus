@@ -1,21 +1,14 @@
 package io.attornatusapirestjava.adapters.in.response;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
-import lombok.*;
 
-@NoArgsConstructor
-@AllArgsConstructor
-@Getter
-@Setter
-@ToString
-@EqualsAndHashCode(of = {"id"})
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public final class PessoaDtoResponse {
+public record PessoaDtoResponse(
 
-    private Long id;
+        Long id,
 
-    private String nome;
+        String nome,
 
-    private String dataNascimento;
-}
+        String dataNascimento
+) { }
 

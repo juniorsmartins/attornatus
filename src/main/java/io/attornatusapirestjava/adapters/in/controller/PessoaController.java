@@ -64,7 +64,7 @@ public class PessoaController {
         logger.info("Finalizada requisição para criar uma pessoa.");
 
         return ResponseEntity
-                .created(URI.create("/api/v1/pessoas/" + dtoResponse.getId()))
+                .created(URI.create("/api/v1/pessoas/" + dtoResponse.id()))
                 .body(dtoResponse);
     }
 
