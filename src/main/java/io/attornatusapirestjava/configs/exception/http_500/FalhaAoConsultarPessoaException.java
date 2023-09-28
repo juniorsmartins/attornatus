@@ -10,5 +10,9 @@ public final class FalhaAoConsultarPessoaException extends ErroInternoDoSistemaE
     public FalhaAoConsultarPessoaException(String message) {
         super(message);
     }
+
+    public FalhaAoConsultarPessoaException() {
+        this("Falha ao consultar uma pessoa.");
+    }
 }
 

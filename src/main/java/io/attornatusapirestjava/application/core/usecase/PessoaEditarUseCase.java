@@ -3,7 +3,6 @@ package io.attornatusapirestjava.application.core.usecase;
 import io.attornatusapirestjava.application.core.domain.Pessoa;
 import io.attornatusapirestjava.application.ports.in.PessoaConsultarInputPort;
 import io.attornatusapirestjava.application.ports.in.PessoaEditarInputPort;
-import io.attornatusapirestjava.application.ports.out.PessoaConsultarOutputPort;
 import io.attornatusapirestjava.application.ports.out.PessoaEditarOutputPort;
 
 import java.util.logging.Logger;

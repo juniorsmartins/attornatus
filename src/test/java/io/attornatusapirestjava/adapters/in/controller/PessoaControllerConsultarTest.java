@@ -1,4 +1,4 @@
-package io.attornatusapirestjava.adapters.in.controllers;
+package io.attornatusapirestjava.adapters.in.controller;
 
 import io.attornatusapirestjava.AttornatusApiRestJavaApplication;
 import io.attornatusapirestjava.adapters.out.entitiy.PessoaEntity;
@@ -20,9 +20,9 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 @AutoConfigureMockMvc
 @ExtendWith(SpringExtension.class)
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
-class PessoaControllerListarTest {
+class PessoaControllerConsultarTest {
 
-    public static final String END_POINT = "/api/v1/pessoas";
+    public static final String END_POINT = "/api/v1/pessoas/";
 
     public static final String UTF8 = "UTF-8";
 
@@ -32,15 +32,12 @@ class PessoaControllerListarTest {
     @Autowired
     private PessoaRepository pessoaRepository;
 
-    private PessoaEntity pessoaEntity1;
-
-    private PessoaEntity pessoaEntity2;
+    private PessoaEntity pessoaEntity;
 
     @BeforeEach
     void criadorDeCenario() {
 
-        pessoaEntity1 = this.pessoaRepository.save(CriadorDeObjetos.fabricarPessoaEntity());
-        pessoaEntity2 = this.pessoaRepository.save(CriadorDeObjetos.fabricarPessoaEntity());
+        pessoaEntity = this.pessoaRepository.save(CriadorDeObjetos.fabricarPessoaEntity());
     }
 
     @AfterEach
@@ -51,14 +48,14 @@ class PessoaControllerListarTest {
 
     @Test
     @Order(1)
-    @DisplayName("Listar - Http 200")
-    void deveRetornarHttp201_quandoCriar() throws Exception {
+    @DisplayName("Consultar - Http 200")
+    void deveRetornarHttp200_quandoConsultar() throws Exception {
 
-        this.mockMvc.perform(MockMvcRequestBuilders.get(END_POINT)
-            .contentType(MediaType.APPLICATION_JSON)
-            .characterEncoding(UTF8)
-            .accept(MediaType.APPLICATION_JSON))
-            .andExpect(MockMvcResultMatchers.status().isOk())
-            .andDo(MockMvcResultHandlers.print());
+        this.mockMvc.perform(MockMvcRequestBuilders.get(END_POINT + pessoaEntity.getId())
+                .contentType(MediaType.APPLICATION_JSON)
+                .characterEncoding(UTF8)
+                .accept(MediaType.APPLICATION_JSON))
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andDo(MockMvcResultHandlers.print());
     }
 }

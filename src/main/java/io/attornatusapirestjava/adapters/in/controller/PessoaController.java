@@ -12,6 +12,7 @@ import io.attornatusapirestjava.application.ports.in.PessoaEditarInputPort;
 import io.attornatusapirestjava.application.ports.in.PessoaListarInputPort;
 import io.attornatusapirestjava.configs.exception.http_500.FalhaAoConsultarPessoaException;
 import io.attornatusapirestjava.configs.exception.http_500.FalhaAoCriarPessoaException;
+import io.attornatusapirestjava.configs.exception.http_500.FalhaAoEditarPessoaException;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -52,18 +53,18 @@ public class PessoaController {
     @PostMapping
     public ResponseEntity<PessoaDtoResponse> criar(@RequestBody @Valid PessoaDtoRequest dtoRequest) {
 
-        logger.info("Iniciado requisição para criar uma pessoa.");
+        logger.info("Iniciada requisição para criar uma pessoa.");
 
         var dtoResponse = Optional.of(dtoRequest)
                 .map(this.pessoaDtoRequestMapper::toPessoa)
                 .map(this.pessoaCriarInputPort::criar)
                 .map(this.pessoaDtoResponseMapper::toPessoaDtoResponse)
-                .orElseThrow(() -> new FalhaAoCriarPessoaException("Falha ao criar uma pessoa."));
+                .orElseThrow(FalhaAoCriarPessoaException::new);
 
         logger.info("Finalizada requisição para criar uma pessoa.");
 
         return ResponseEntity
-                .created(URI.create("/api/v1/pessoas/" + dtoResponse.getId()))
+                .created(URI.create("/api/v1/pessoas/" + dtoResponse.id()))
                 .body(dtoResponse);
     }
 
@@ -75,7 +76,7 @@ public class PessoaController {
         var dtoResponse = Optional.of(id)
                 .map(this.pessoaConsultarInputPort::consultar)
                 .map(this.pessoaDtoResponseMapper::toPessoaDtoResponse)
-                .orElseThrow(() -> new FalhaAoConsultarPessoaException("Falha ao consultar uma pessoa."));
+                .orElseThrow(FalhaAoConsultarPessoaException::new);
 
         logger.info("Finalizada requisição para consultar uma pessoa.");
 
@@ -110,7 +111,7 @@ public class PessoaController {
                         .map(this.pessoaEditarDtoRequestMapper::toPessoa)
                         .map(this.pessoaEditarInputPort::editar)
                         .map(this.pessoaDtoResponseMapper::toPessoaDtoResponse)
-                        .orElseThrow();
+                        .orElseThrow(FalhaAoEditarPessoaException::new);
 
         logger.info("Finalizada requisição para editar pessoa.");
 

@@ -1,4 +1,4 @@
-package io.attornatusapirestjava.adapters.in.controllers;
+package io.attornatusapirestjava.adapters.in.controller;
 
 import io.attornatusapirestjava.AttornatusApiRestJavaApplication;
 import io.attornatusapirestjava.adapters.out.entitiy.PessoaEntity;
@@ -21,9 +21,9 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 @AutoConfigureMockMvc
 @ExtendWith(SpringExtension.class)
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
-class PessoaControllerEditarTest {
+class EnderecoControllerCriarTest {
 
-    public static final String END_POINT = "/api/v1/pessoas";
+    public static final String END_POINT = "/api/v1/enderecos/";
 
     public static final String UTF8 = "UTF-8";
 
@@ -49,12 +49,12 @@ class PessoaControllerEditarTest {
 
     @Test
     @Order(1)
-    @DisplayName("Editar - Http 200")
-    void deveRetornarHttp200_quandoEditar() throws Exception {
+    @DisplayName("Criar - Http 200")
+    void deveRetornarHttp200_quandoCriar() throws Exception {
 
-        var dtoRequest = CriadorDeObjetos.fabricarPessoaEditarDtoRequest(pessoaEntity1.getId());
+        var dtoRequest = CriadorDeObjetos.fabricarEnderecoDtoRequest();
 
-        this.mockMvc.perform(MockMvcRequestBuilders.put(END_POINT)
+        this.mockMvc.perform(MockMvcRequestBuilders.put(END_POINT + pessoaEntity1.getId())
             .contentType(MediaType.APPLICATION_JSON)
             .characterEncoding(UTF8)
             .content(Conversor.converterObjetoParaJson(dtoRequest))
@@ -63,3 +63,4 @@ class PessoaControllerEditarTest {
             .andDo(MockMvcResultHandlers.print());
     }
 }
+
