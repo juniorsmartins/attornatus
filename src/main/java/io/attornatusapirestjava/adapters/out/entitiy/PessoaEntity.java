@@ -6,6 +6,9 @@ import lombok.*;
 import java.io.Serial;
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "pessoas")
@@ -14,6 +17,7 @@ import java.time.LocalDate;
 @AllArgsConstructor
 @Getter
 @Setter
+@ToString
 @EqualsAndHashCode(of = {"id"})
 public final class PessoaEntity implements Serializable {
 
@@ -30,5 +34,8 @@ public final class PessoaEntity implements Serializable {
 
     @Column(name = "dataNascimento", nullable = false)
     private LocalDate dataNascimentoLocalDate;
+
+    @OneToMany(mappedBy = "pessoa")
+    private Set<EnderecoEntity> enderecos = new HashSet<>();
 }
 

@@ -1,6 +1,7 @@
 package io.attornatusapirestjava.adapters.in.response;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
+import io.attornatusapirestjava.adapters.in.request.PessoaDtoResumo;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public record EnderecoDtoResponse(
@@ -15,6 +16,8 @@ public record EnderecoDtoResponse(
 
         String cidade,
 
-        Boolean statusPrincipal
+        Boolean statusPrincipal,
+
+        PessoaDtoResumo pessoa
 ) { }
 

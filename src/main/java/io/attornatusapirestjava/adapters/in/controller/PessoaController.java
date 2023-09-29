@@ -53,7 +53,9 @@ public class PessoaController {
     @PostMapping
     public ResponseEntity<PessoaDtoResponse> criar(@RequestBody @Valid PessoaDtoRequest dtoRequest) {
 
-        logger.info("Iniciada requisição para criar uma pessoa.");
+        logger.info("Recebida requisição para criar uma pessoa no Controller.");
+
+        dtoRequest.enderecos().forEach(endereco -> System.out.println("\n" + endereco.toString()));
 
         var dtoResponse = Optional.of(dtoRequest)
                 .map(this.pessoaDtoRequestMapper::toPessoa)
@@ -61,7 +63,7 @@ public class PessoaController {
                 .map(this.pessoaDtoResponseMapper::toPessoaDtoResponse)
                 .orElseThrow(FalhaAoCriarPessoaException::new);
 
-        logger.info("Finalizada requisição para criar uma pessoa.");
+        logger.info("Concretizada requisição para criar uma pessoa.");
 
         return ResponseEntity
                 .created(URI.create("/api/v1/pessoas/" + dtoResponse.id()))

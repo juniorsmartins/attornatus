@@ -4,6 +4,9 @@ import io.attornatusapirestjava.application.core.domain.objeto_valor.DataNascime
 import org.apache.commons.lang3.ObjectUtils;
 
 import java.time.LocalDate;
+import java.util.HashSet;
+import java.util.Objects;
+import java.util.Set;
 
 public final class Pessoa {
 
@@ -12,6 +15,8 @@ public final class Pessoa {
     private String nome;
 
     private DataNascimento dataNascimento;
+
+    private Set<Endereco> enderecos = new HashSet<>();
 
     public Long getId() {
         return id;
@@ -27,6 +32,14 @@ public final class Pessoa {
 
     public void setNome(String nome) {
         this.nome = nome;
+    }
+
+    public Set<Endereco> getEnderecos() {
+        return enderecos;
+    }
+
+    public void setEnderecos(Set<Endereco> enderecos) {
+        this.enderecos = enderecos;
     }
 
     public void setDataNascimentoString(String dataNascimento) {
@@ -53,6 +66,29 @@ public final class Pessoa {
             return this.dataNascimento.getDataNascimentoLocalDate();
         }
         return null;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Pessoa pessoa = (Pessoa) o;
+        return Objects.equals(id, pessoa.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
+    }
+
+    @Override
+    public String toString() {
+        return "Pessoa{" +
+                "id=" + id +
+                ", nome='" + nome + '\'' +
+                ", dataNascimento=" + dataNascimento +
+                ", enderecos=" + enderecos +
+                '}';
     }
 }
 

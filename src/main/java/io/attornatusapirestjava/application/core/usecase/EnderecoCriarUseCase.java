@@ -2,7 +2,9 @@ package io.attornatusapirestjava.application.core.usecase;
 
 import io.attornatusapirestjava.application.core.domain.Endereco;
 import io.attornatusapirestjava.application.ports.in.EnderecoCriarInputPort;
+import io.attornatusapirestjava.application.ports.in.PessoaConsultarInputPort;
 import io.attornatusapirestjava.application.ports.out.EnderecoSalvarOutputPort;
+import jakarta.transaction.Transactional;
 
 import java.util.logging.Logger;
 
@@ -12,16 +14,27 @@ public class EnderecoCriarUseCase implements EnderecoCriarInputPort {
 
     private final EnderecoSalvarOutputPort enderecoSalvarOutputPort;
 
-    public EnderecoCriarUseCase(EnderecoSalvarOutputPort enderecoSalvarOutputPort) {
+    private final PessoaConsultarInputPort pessoaConsultarInputPort;
+
+    public EnderecoCriarUseCase(EnderecoSalvarOutputPort enderecoSalvarOutputPort,
+                                PessoaConsultarInputPort pessoaConsultarInputPort) {
         this.enderecoSalvarOutputPort = enderecoSalvarOutputPort;
+        this.pessoaConsultarInputPort = pessoaConsultarInputPort;
     }
 
+    @Transactional
     @Override
     public Endereco criar(final Long idPessoa, Endereco endereco) {
 
-        logger.info("Criar endereço.");
+        logger.info("Iniciado procedimento de criar um endereço no UseCase.");
 
-        return this.enderecoSalvarOutputPort.salvar(endereco);
+        var pessoa = this.pessoaConsultarInputPort.consultar(idPessoa);
+        endereco.setPessoa(pessoa);
+        var enderecoSalvo = this.enderecoSalvarOutputPort.salvar(endereco);
+
+        logger.info("Finalizado procedimento de criar um endereço no UseCase.");
+
+        return enderecoSalvo;
     }
 }
 

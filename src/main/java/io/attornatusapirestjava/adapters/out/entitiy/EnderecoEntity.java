@@ -13,7 +13,8 @@ import java.io.Serializable;
 @AllArgsConstructor
 @Getter
 @Setter
-@EqualsAndHashCode(of = {"id"})
+@ToString
+@EqualsAndHashCode(of = {"id", "logradouro", "cep", "numero", "cidade", "statusPrincipal", "pessoa"})
 public final class EnderecoEntity implements Serializable {
 
     @Serial
@@ -38,5 +39,9 @@ public final class EnderecoEntity implements Serializable {
 
     @Column(name = "status_principal", nullable = false)
     private Boolean statusPrincipal;
+
+    @ManyToOne
+    @JoinColumn(name = "pessoa_id", nullable = false)
+    private PessoaEntity pessoa;
 }
 

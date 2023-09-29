@@ -33,7 +33,7 @@ public class EnderecoController {
     public ResponseEntity<EnderecoDtoResponse> criar(@PathVariable(name = "idPessoa") final Long id,
                                                      @RequestBody @Valid EnderecoDtoRequest dtoRequest) {
 
-        logger.info("Iniciada requisição para criar um endereço.");
+        logger.info("Recebida requisição para criar um endereço.");
 
         var dtoResponse = Optional.of(dtoRequest)
                 .map(this.enderecoDtoRequestMapper::toEndereco)
@@ -41,7 +41,7 @@ public class EnderecoController {
                 .map(this.enderecoDtoResponseMapper::toEnderecoDtoResponse)
                 .orElseThrow(FalhaAoCriarEnderecoException::new);
 
-        logger.info("Finalizada requisição para criar um endereço.");
+        logger.info("Concretizada requisição para criar um endereço.");
 
         return ResponseEntity
             .ok()

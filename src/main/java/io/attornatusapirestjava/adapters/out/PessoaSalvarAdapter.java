@@ -25,13 +25,19 @@ public class PessoaSalvarAdapter implements PessoaSalvarOutputPort {
     @Override
     public Pessoa salvar(Pessoa pessoa) {
 
-        logger.info("Salvar uma pessoa.");
+        logger.info("Iniciado procedimento de salvar pessoa no Adapter.");
 
-        return Optional.of(pessoa)
+        pessoa.getEnderecos().forEach(endereco -> System.out.println("\n" + endereco.toString()));
+
+        var pessoaSalva = Optional.of(pessoa)
                 .map(this.pessoaEntityMapper::toPessoaEntity)
-                .map(this.pessoaRepository::save)
+                .map(this.pessoaRepository::saveAndFlush)
                 .map(this.pessoaEntityMapper::toPessoa)
                 .orElseThrow(FalhaAoSalvarPessoaException::new);
+
+        logger.info("Finalizado procedimento de salvar pessoa no Adapter.");
+
+        return pessoaSalva;
     }
 }
 
