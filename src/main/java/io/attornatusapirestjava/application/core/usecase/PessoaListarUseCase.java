@@ -3,7 +3,6 @@ package io.attornatusapirestjava.application.core.usecase;
 import io.attornatusapirestjava.application.core.domain.Pessoa;
 import io.attornatusapirestjava.application.ports.in.PessoaListarInputPort;
 import io.attornatusapirestjava.application.ports.out.PessoaListarOutputPort;
-import jakarta.transaction.Transactional;
 
 import java.util.List;
 import java.util.logging.Logger;
@@ -18,12 +17,16 @@ public class PessoaListarUseCase implements PessoaListarInputPort {
         this.pessoaListarOutputPort = pessoaListarOutputPort;
     }
 
-    @Transactional
     @Override
     public List<Pessoa> listar() {
 
-        logger.info("Listar pessoas.");
-        return this.pessoaListarOutputPort.listar();
+        logger.info("UseCase inicia procedimento de listar pessoas.");
+
+        var pessoas = this.pessoaListarOutputPort.listar();
+
+        logger.info("UseCase finaliza procedimento de listar pessoas.");
+
+        return pessoas;
     }
 }
 
