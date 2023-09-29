@@ -36,5 +36,12 @@ public class EnderecoCriarUseCase implements EnderecoCriarInputPort {
 
         return enderecoSalvo;
     }
+
+    private void controleDeEnderecoPrincipal(Endereco endereco) {
+
+        if (endereco.getStatusPrincipal()) {
+            //TODO - antes de continuar, criar listar endereços por Pessoa.
+        }
+    }
 }
 

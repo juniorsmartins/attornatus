@@ -4,6 +4,7 @@ import io.attornatusapirestjava.adapters.out.mapper.PessoaEntityMapper;
 import io.attornatusapirestjava.adapters.out.repository.PessoaRepository;
 import io.attornatusapirestjava.application.core.domain.Pessoa;
 import io.attornatusapirestjava.application.ports.out.PessoaListarOutputPort;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -21,6 +22,7 @@ public class PessoaListarAdapter implements PessoaListarOutputPort {
     @Autowired
     private PessoaEntityMapper pessoaEntityMapper;
 
+    @Transactional
     @Override
     public List<Pessoa> listar() {
 

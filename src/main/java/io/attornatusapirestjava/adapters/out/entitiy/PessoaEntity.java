@@ -1,5 +1,6 @@
 package io.attornatusapirestjava.adapters.out.entitiy;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -7,7 +8,6 @@ import java.io.Serial;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -35,6 +35,7 @@ public final class PessoaEntity implements Serializable {
     @Column(name = "dataNascimento", nullable = false)
     private LocalDate dataNascimentoLocalDate;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "pessoa")
     private Set<EnderecoEntity> enderecos = new HashSet<>();
 }

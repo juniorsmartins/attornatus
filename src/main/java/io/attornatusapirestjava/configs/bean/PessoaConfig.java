@@ -4,7 +4,10 @@ import io.attornatusapirestjava.adapters.out.PessoaConsultarAdapter;
 import io.attornatusapirestjava.adapters.out.PessoaEditarAdapter;
 import io.attornatusapirestjava.adapters.out.PessoaListarAdapter;
 import io.attornatusapirestjava.adapters.out.PessoaSalvarAdapter;
-import io.attornatusapirestjava.application.core.usecase.*;
+import io.attornatusapirestjava.application.core.usecase.PessoaConsultarUseCase;
+import io.attornatusapirestjava.application.core.usecase.PessoaCriarUseCase;
+import io.attornatusapirestjava.application.core.usecase.PessoaEditarUseCase;
+import io.attornatusapirestjava.application.core.usecase.PessoaListarUseCase;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -12,9 +15,8 @@ import org.springframework.context.annotation.Configuration;
 public class PessoaConfig {
 
     @Bean
-    public PessoaCriarUseCase pessoaCriarUseCase(PessoaSalvarAdapter pessoaSalvarAdapter,
-                                                 EnderecoCriarUseCase enderecoCriarUseCase) {
-        return new PessoaCriarUseCase(pessoaSalvarAdapter, enderecoCriarUseCase);
+    public PessoaCriarUseCase pessoaCriarUseCase(PessoaSalvarAdapter pessoaSalvarAdapter) {
+        return new PessoaCriarUseCase(pessoaSalvarAdapter);
     }
 
     @Bean

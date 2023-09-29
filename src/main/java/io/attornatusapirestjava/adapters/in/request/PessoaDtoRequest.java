@@ -5,8 +5,6 @@ import jakarta.validation.constraints.Pattern;
 import org.hibernate.validator.constraints.Length;
 import org.springframework.format.annotation.DateTimeFormat;
 
-import java.util.Set;
-
 public record PessoaDtoRequest(
 
         @NotBlank
@@ -16,8 +14,6 @@ public record PessoaDtoRequest(
         @NotBlank
         @Pattern(regexp = "\\d{2}/\\d{2}/\\d{4}", message = "Formato de data inválido. Utilize o formato dd/MM/yyyy.")
         @DateTimeFormat(pattern = "dd/MM/yyyy")
-        String dataNascimentoString,
-
-        Set<EnderecoDtoRequest> enderecos
+        String dataNascimentoString
 ) { }
 

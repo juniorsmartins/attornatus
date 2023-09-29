@@ -1,5 +1,6 @@
 package io.attornatusapirestjava.adapters.out.entitiy;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -40,7 +41,7 @@ public final class EnderecoEntity implements Serializable {
     @Column(name = "status_principal", nullable = false)
     private Boolean statusPrincipal;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "pessoa_id", nullable = false)
     private PessoaEntity pessoa;
 }

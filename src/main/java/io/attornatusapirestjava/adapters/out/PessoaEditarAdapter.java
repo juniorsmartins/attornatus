@@ -5,6 +5,7 @@ import io.attornatusapirestjava.adapters.out.repository.PessoaRepository;
 import io.attornatusapirestjava.application.core.domain.Pessoa;
 import io.attornatusapirestjava.application.ports.out.PessoaEditarOutputPort;
 import io.attornatusapirestjava.configs.exception.http_500.FalhaAoEditarPessoaException;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -22,6 +23,7 @@ public class PessoaEditarAdapter implements PessoaEditarOutputPort {
     @Autowired
     private PessoaEntityMapper pessoaEntityMapper;
 
+    @Transactional
     @Override
     public Pessoa editar(Pessoa pessoa) {
 
