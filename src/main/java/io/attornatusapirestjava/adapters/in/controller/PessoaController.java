@@ -53,7 +53,7 @@ public class PessoaController {
     @PostMapping
     public ResponseEntity<PessoaDtoResponse> criar(@RequestBody @Valid PessoaDtoRequest dtoRequest) {
 
-        logger.info("Iniciada requisição para criar uma pessoa.");
+        logger.info("Controller recebe requisição para criar uma pessoa.");
 
         var dtoResponse = Optional.of(dtoRequest)
                 .map(this.pessoaDtoRequestMapper::toPessoa)
@@ -61,7 +61,7 @@ public class PessoaController {
                 .map(this.pessoaDtoResponseMapper::toPessoaDtoResponse)
                 .orElseThrow(FalhaAoCriarPessoaException::new);
 
-        logger.info("Finalizada requisição para criar uma pessoa.");
+        logger.info("Controller concretiza requisição para criar uma pessoa.");
 
         return ResponseEntity
                 .created(URI.create("/api/v1/pessoas/" + dtoResponse.id()))
@@ -71,14 +71,14 @@ public class PessoaController {
     @GetMapping(path = "/{id}")
     public ResponseEntity<PessoaDtoResponse> consultar(@PathVariable(name = "id") final Long id) {
 
-        logger.info("Iniciada requisição para consultar uma pessoa.");
+        logger.info("Controller recebe requisição para consultar uma pessoa.");
 
         var dtoResponse = Optional.of(id)
                 .map(this.pessoaConsultarInputPort::consultar)
                 .map(this.pessoaDtoResponseMapper::toPessoaDtoResponse)
                 .orElseThrow(FalhaAoConsultarPessoaException::new);
 
-        logger.info("Finalizada requisição para consultar uma pessoa.");
+        logger.info("Controller concretiza requisição para consultar uma pessoa.");
 
         return ResponseEntity
                 .ok()
@@ -88,14 +88,14 @@ public class PessoaController {
     @GetMapping
     public ResponseEntity<List<PessoaDtoResponse>> listar() {
 
-        logger.info("Iniciada requisição para listar pessoas.");
+        logger.info("Controller recebe requisição para listar pessoas.");
 
         var response = this.pessoaListarInputPort.listar()
             .stream()
             .map(this.pessoaDtoResponseMapper::toPessoaDtoResponse)
             .toList();
 
-        logger.info("Finalizada requisição para listar pessoas.");
+        logger.info("Controller concretiza requisição para listar pessoas.");
 
         return ResponseEntity
                 .ok()
@@ -105,7 +105,7 @@ public class PessoaController {
     @PutMapping
     public ResponseEntity<PessoaDtoResponse> editar(@RequestBody @Valid PessoaEditarDtoRequest pessoaEditarDtoRequest) {
 
-        logger.info("Iniciada requisição para editar pessoa.");
+        logger.info("Controller recebe requisição para editar pessoa.");
 
         var dtoResponse = Optional.of(pessoaEditarDtoRequest)
                         .map(this.pessoaEditarDtoRequestMapper::toPessoa)
@@ -113,7 +113,7 @@ public class PessoaController {
                         .map(this.pessoaDtoResponseMapper::toPessoaDtoResponse)
                         .orElseThrow(FalhaAoEditarPessoaException::new);
 
-        logger.info("Finalizada requisição para editar pessoa.");
+        logger.info("Controller concretiza requisição para editar pessoa.");
 
         return ResponseEntity
                 .ok()

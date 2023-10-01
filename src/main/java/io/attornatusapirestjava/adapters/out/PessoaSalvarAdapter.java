@@ -5,6 +5,7 @@ import io.attornatusapirestjava.adapters.out.repository.PessoaRepository;
 import io.attornatusapirestjava.application.core.domain.Pessoa;
 import io.attornatusapirestjava.application.ports.out.PessoaSalvarOutputPort;
 import io.attornatusapirestjava.configs.exception.http_500.FalhaAoSalvarPessoaException;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -22,16 +23,21 @@ public class PessoaSalvarAdapter implements PessoaSalvarOutputPort {
     @Autowired
     private PessoaEntityMapper pessoaEntityMapper;
 
+    @Transactional
     @Override
     public Pessoa salvar(Pessoa pessoa) {
 
-        logger.info("Salvar uma pessoa.");
+        logger.info("Adapter inicia procedimento de salvar uma pessoa.");
 
-        return Optional.of(pessoa)
+        var pessoaSalva = Optional.of(pessoa)
                 .map(this.pessoaEntityMapper::toPessoaEntity)
-                .map(this.pessoaRepository::save)
+                .map(this.pessoaRepository::saveAndFlush)
                 .map(this.pessoaEntityMapper::toPessoa)
                 .orElseThrow(FalhaAoSalvarPessoaException::new);
+
+        logger.info("Adapter finaliza procedimento de salvar uma pessoa.");
+
+        return pessoaSalva;
     }
 }
 

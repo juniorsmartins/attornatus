@@ -20,8 +20,13 @@ public class PessoaListarUseCase implements PessoaListarInputPort {
     @Override
     public List<Pessoa> listar() {
 
-        logger.info("Listar pessoas.");
-        return this.pessoaListarOutputPort.listar();
+        logger.info("UseCase inicia procedimento de listar pessoas.");
+
+        var pessoas = this.pessoaListarOutputPort.listar();
+
+        logger.info("UseCase finaliza procedimento de listar pessoas.");
+
+        return pessoas;
     }
 }
 

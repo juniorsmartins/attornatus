@@ -4,6 +4,7 @@ import io.attornatusapirestjava.application.core.domain.objeto_valor.DataNascime
 import org.apache.commons.lang3.ObjectUtils;
 
 import java.time.LocalDate;
+import java.util.Objects;
 
 public final class Pessoa {
 
@@ -12,22 +13,6 @@ public final class Pessoa {
     private String nome;
 
     private DataNascimento dataNascimento;
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getNome() {
-        return nome;
-    }
-
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
 
     public void setDataNascimentoString(String dataNascimento) {
         if (ObjectUtils.isNotEmpty(dataNascimento)) {
@@ -53,6 +38,39 @@ public final class Pessoa {
             return this.dataNascimento.getDataNascimentoLocalDate();
         }
         return null;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getNome() {
+        return nome;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
+    public void setDataNascimento(DataNascimento dataNascimento) {
+        this.dataNascimento = dataNascimento;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Pessoa pessoa = (Pessoa) o;
+        return Objects.equals(id, pessoa.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
     }
 }
 
